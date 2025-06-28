@@ -1,3 +1,5 @@
+/*________________________DECLARE VARIABLES_________________________*/
+
 // make cursor
 @SCREEN 
 M=-1
@@ -7,6 +9,7 @@ D=A
 @R1
 M=D
 
+// the max the cursor can go
 @SCREEN
 D=A
 @30
@@ -14,6 +17,15 @@ D=D+A
 @R2
 M=D
 
+@SCREEN
+D=A
+@32
+D=D+A
+@R3
+M=D
+
+
+/*_____________________________game loop__________________________*/
 (START) // loop
 // save current key
 @KBD	
@@ -35,7 +47,9 @@ D=A-D
 // if right jump to right
 D;JEQ
 
-
+@BALL
+0;JMP
+(CONTINUE)
 // loop
 @START
 0;JMP
@@ -66,7 +80,7 @@ D=A+1
 M=D
 A=M
 M=-1
-@START
+@BALL
 0;JMP
 
 /*____________move left_______________*/
@@ -89,5 +103,31 @@ D=A-1
 M=D
 A=M
 M=-1
-@START
+@BALL
 0;JMP
+
+/*____________move the ball_______________*/
+(BALL)
+@R3
+D=M
+A=M
+M=0
+@32
+D=D+A
+A=D
+M=-1
+@R3
+M=D
+@CONTINUE
+0;JMP
+
+
+
+
+
+
+
+
+
+
+
