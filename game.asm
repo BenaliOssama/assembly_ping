@@ -1,29 +1,69 @@
-
-@SCREEN
+// make cursor
+@SCREEN 
 M=-1
-(START)
-@KBD
+
+// save location of the cursor
+D=A
+@R1
+M=D
+
+(START) // loop
+
+// save current key
+@KBD	
 D=M
-// if key is right move to the right
+// check if key is right
 @132
 D=A-D
 @RIGHT
+// if right jump to right
+D;JEQ
+
+// save key
+@KBD	
+D=M
+// check if key is left
+@130
+D=A-D
+@LEFT
+// if right jump to right
 D;JEQ
 
 
-// MOVE RIGHT
-(RIGHT)
-@SCREEN
-D=A
-M=0
-A=D+1
-M=-1
-
-
-
-//
+// loop
 @START
 0;JMP
-(END)
-@END
+
+/*_______________________functions____________________________*/
+
+/*____________move right_____________*/
+(RIGHT)
+// get the current location of the cursor
+@R1
+A=M
+// remove the cursor
+M=0
+// move the cursor right
+D=A+1
+@R1
+M=D
+A=M
+M=-1
+@START
+0;JMP
+
+/*____________move left_______________*/
+(LEFT)
+// get the current location of the cursor
+@R1
+A=M
+// remove the cursor
+M=0
+// move the cursor right
+D=A-1
+@R1
+M=D
+A=M
+M=-1
+@START
 0;JMP
