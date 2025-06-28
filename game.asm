@@ -7,8 +7,14 @@ D=A
 @R1
 M=D
 
-(START) // loop
+@SCREEN
+D=A
+@30
+D=D+A
+@R2
+M=D
 
+(START) // loop
 // save current key
 @KBD	
 D=M
@@ -40,7 +46,18 @@ D;JEQ
 (RIGHT)
 // get the current location of the cursor
 @R1
+D=M
+
+@R2
+D=M-D
+@START
+D;JLT
+
+@R1
 A=M
+@R1
+A=M
+
 // remove the cursor
 M=0
 // move the cursor right
@@ -55,6 +72,13 @@ M=-1
 /*____________move left_______________*/
 (LEFT)
 // get the current location of the cursor
+@R1
+D=M
+@SCREEN
+D=D-A
+@START
+D;JLE
+
 @R1
 A=M
 // remove the cursor
